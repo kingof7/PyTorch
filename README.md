@@ -114,3 +114,56 @@ Requirement already satisfied: numpy>=1.19.5 in /usr/local/lib/python3.10/dist-p
 Requirement already satisfied: scipy>=1.6.0 in /usr/local/lib/python3.10/dist-packages (from scikit-learn) (1.13.1)
 Requirement already satisfied: joblib>=1.2.0 in /usr/local/lib/python3.10/dist-packages (from scikit-learn) (1.4.2)
 Requirement already satisfied: threadpoolctl>=3.1.0 in /usr/local/lib/python3.10/dist-packages (from scikit-learn) (3.5.0)
+
+### [이론] 딥러닝 (Deep Learning)은 뭘까?
+- 딥러닝이란?
+  - Deep Learning이란 무엇? 어디에서 기원하는가?
+    - 딥러닝으로 어떤 문제를 풀 수 있을까?
+      - Input Data X -> Model -> Y = Cat
+      - 입력값 X -> Label Y의 값은 Y = f(X)
+      - X -> Y로 매핑해주는 함수 f(X)는 어떻게 구할까?
+        - 정확한 f(X) 구하기는 어렵다.
+      - f(X)에 "근사"하는 f^(X)으로 모델링 한다. --> Y^ = NN(X), f(X) ~ f^(X)
+        - 목표 : Y^=NN(X) 뉴럴 네트워크의 출력값이 Y=f(X) 실제값에 최대한 유사하도록 하는 것. (뉴럴넷을 학습한다는 의미임.)
+
+  - 어떤 문제를 풀려고 하는 것인가?
+
+  - Neural Network의 기본 구성은 어떻고, 어떻게 학습시키는가?
+
+### [이론] 뉴럴넷 (Neural Network)은 뭘까?
+- 기본적인 Neural Network의 구성
+  - 기본 구성 : Input Layer + (한 개 이상의) Hidden Layer + Output Layer
+  - 특성 :
+    - 각 Layer은 뉴런(Neuron) 들로 구성됨.
+    - 각 뉴런은 다음 Layer의 뉴런과 연결 (edge) 되어 있음
+    - 즉, 뉴런은 이전 Layer의 뉴런들의 출력값으로 입력을 받는다.
+    - 각 뉴런은 가중치 weight w와 활성 함수 activation fucntion으로 구성된다.
+
+  - 예시 :
+    - x1, x2, x3
+      - 뉴럴넷에 입력되는 값
+      - input layer의 1, 2, 3번째 뉴런이 출력하는 값
+      - 다음 Layer의 Input 값으로 전달
+    - hj
+      - Hidden Layer의 j번째 뉴런이 출력하는 값
+      - 이전 Layer인 Input Layer의 출력값을 입력값으로 사용하여 계산됨
+      - 다음 Layer의 Input 값으로 전달
+
+  - x1, x2, x3 => hj 계산과정
+    - 입력 값 : x1 / x2 / x3 (input)
+    - 출력 값 : hj (output)
+    - 과정 :
+      - Weight Multiplication (가중치 곱) -> Aggregation (집계) -> Activation Function (활성 함수)
+    - 상세 :
+      - Weight Multiplication : x1 * wj1 / x2 * wj2 / x3 * wj3
+      - Aggregation : (x1 * wj1) + (x2 * wj2) + (x3 * wj3)
+      - Activation Function : AF(Aggregation결과) => hj 출력
+
+- Neural Network의 기원
+  - 뇌의 뉴런에서 시작
+    - Input : Dendrite(수상돌기) - 다른 뉴런의 출력 Singal 신호를 수용
+    - 중간 과정 : 뉴런의 특성(~ activation function과 비슷)
+    - Output : Axon Terminal(뉴런말단) - 출력 Signal
+
+
+
