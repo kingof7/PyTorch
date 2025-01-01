@@ -165,5 +165,24 @@ Requirement already satisfied: threadpoolctl>=3.1.0 in /usr/local/lib/python3.10
     - 중간 과정 : 뉴런의 특성(~ activation function과 비슷)
     - Output : Axon Terminal(뉴런말단) - 출력 Signal
 
+### [실습] Neural Network의 동작 원리
+- Question : 어떻게 해야 뉴럴 네트워크의 출력값 Y^가 실제 값인 Y에 근사 할까?
+  - 각 Layer의 weight w를 최적회해야함! (= 각 Layer에 곱해지는 가중치의 최적 조합을 찾고 싶은 것!)
+    - Weight wji이 바뀌면 주어진 input xi값에 대한 Output y 값도 바뀐다.
+    - 주어진 Input xi들에 대해서 최대한 실제값 y과 유사하게 Output y^을 출력해주는 가중치 wji들의
+      조합을 찾고 싶은 것
+    - 각 Layer의 weight wji을 적절하게 조정해서 주어진 Input에 대해서 출력되는 y^이 실제값 y에 최대한
+      잘 근사하도록 최적화 하는 것
+
+  - Weight 값을 어떻게 정의해야 예측값이 최대한 정확할까?
+    - 기본적으로 알 수 없음, 처음에는 랜덤하게 정의해야함
+
+  - Weight 값을 어떻게 최적화해야 모델의 예측값이 더 정확해질 수 있을까?
+    - Gradient Descent (경사 하강)을 통한 Loss fucntion (손실 함수)값을 최소화하도록, weight값을
+      최적화하여 점진적으로 모델의 예측 정확도를 높인다.
+
+- Answer : 즉, 처음에는 랜덤한 weight 값에 따라 모델의 예측값도 random 하지만, weight w 값을
+  최적화하여 점차 모델의 정확도를 높인다!
+
 
 
