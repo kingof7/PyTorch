@@ -260,7 +260,7 @@ Requirement already satisfied: threadpoolctl>=3.1.0 in /usr/local/lib/python3.10
         -   미분 가능해야 함 (Gradient Descent를 사용하기 위해)
         -   Cross Entropy Loss, Mean Squared Loss 등
         -   **결론**: 모델 학습 단계에서 모델의 가중치를 조정하기 위한 목적으로 예측 오차를 측정
-        
+
     -   **Evaluation Metric**
         -   학습된 모델의 성능을 평가하는데 사용되는 지표
         -   손실 함수와 달리 평가 지표는 더 직관적이다.
