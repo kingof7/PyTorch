@@ -184,5 +184,96 @@ Requirement already satisfied: threadpoolctl>=3.1.0 in /usr/local/lib/python3.10
 - Answer : 즉, 처음에는 랜덤한 weight 값에 따라 모델의 예측값도 random 하지만, weight w 값을
   최적화하여 점차 모델의 정확도를 높인다!
 
+### [실습] Deep Learning 실무 기초 개념
+- Training, Validation, Test dataset
+
+  - Training (학습/훈련) 데이터셋
+    - 모델을 학습시키는 용도
+    - 딥러닝 모델의 경우 학습 데이터셋에 대해서 Gradient Descent하여 Loss가 최소화되도록 모델의
+      weight를 최적화함
+
+  - Validation (검증) 데이터셋
+    - 모델의 성능평가와 Hyperparameter Tuning에 사용
+      - Hyperparameter?
+        - 모델 구조와 학습 방식에 영향을 주는 파라미터, 모델의 최종 성능에도 영향을 줌
+      - Hyperparameter Tuning?
+        - 가장 최적의 Hyperparameter 조합을 찾는 것.
+        - Validation 성능이 가장 높은 조합 찾기
+
+    - 학습 데이터셋에 대한 "Overfitting" 될 수 있기에 Validation 데이터셋으로 성능 평가
+      - Overfitting(과적합)이란?
+        - Unseen data에 대해서 모델의 예측값이 일반화되지 않는 경우
+        - 뉴럴넷 모델이 학습 데이터에 있는 noise에 대해서도 학습하여, 일반화 성능이 저하되는 현상
+        - Epochs(반복 학습)이 늘어날 수록 성능이 마냥 좋이지지 않는다, 어느 기점부터 Valid Loss가
+          증가하는 현상이 발생하는데 이를 과적합이라고함
+          - 예 : 데이터 자체의 노이즈를 고려하지 않고 모델의 Degree를 마냥 높이면 실제 True f(x)
+                 와의 오차가 심하게 발생함
+
+  - Test (시험) 데이터 셋
+    - 검증 단계에서 선택한 최적의 모델의 최종 성능을 평가하는데 사용
+    - Hyperparameter Tuning을 과도하게 적용하는 경우, Validation dataset에 대해서 unintentional
+      overfitting이 발생할 수 있다.
+
+- Overfitting
+
+- K-fold Cross Validation : 데이터 셋이 너무 작아서 Validation dataset을 확보할 수 없을 때 사용
+  - 1. 데이터 분할 : 원본 데이터셋을 K 개의 서로 겹치지 않는 부분 집합으로 나눈다.
+                    (일반적으로 K=5 혹은 10 사용)
+  - 2. 반복 학습 및 검증
+    - 하나의 Fold를 검증 데이터로 사용
+    - K-1 개의 폴드를 훈련 데이터로 사용하여 모델 학습
+
+    - i) K = 6
+
+      | Validation          | Training                                        |
+      |---------------------|---------|---------|---------|---------|---------|
+      | (Fold 1) Validation | Fold 2  | Fold 3  | Fold 4  | Fold 5  | Fold 6  |
+
+    - ii)
+
+      | Training | Validation           | Training                             |
+      |----------|----------------------|---------|---------|---------|--------|
+      | Fold 1   | (Fold 2) Validation  | Fold 3  | Fold 4  | Fold 5  | Fold 6 |
+
+    - iii)
+
+      | Training            | Validation          |Training                     |
+      |----------|----------|---------------------|---------|---------|---------|
+      | Fold 1   | Fold 2   | (Fold 3) Validation | Fold 4  | Fold 5  | Fold 6  |
+
+    - iv)
+
+      | Training                                          |Validation           |
+      |----------|----------|---------|---------|---------|---------------------|
+      | Fold 1   | Fold 2   |  Fold 3 | Fold 4  | Fold 5  | (Fold 6) Validation |
 
 
+
+  - 3. 성능 측정
+    - 각 반복마다 모델은 검증용 폴드에 대한 성능 평가
+    - 모든 K 번의 평가 완료 후에 평균 성능 계산
+
+  - 4. 최종 성능 평가 혹은 Hyperparameter Tuning
+    - Fold들에 대한 평균 성능을 최종 선응 지표로 사용
+    - 혹은 Hyperparamter Tuning에 사용할 수도 있음
+
+  - 5. 장점
+    - 데이터를 효과적으로 활용하여 모델의 성능을 평가
+    - 과적합 문제를 예방하고 모델의 일반화 성능을 더 신뢰성 있게 추정
+    - 검증 데이터의 선택에 따라 모델의 평과 결과가 크게 변하지 않는다.
+
+- Hyperparameter Tuning
+
+- Loss와 Evaluation Metric의 차이
+  - Loss Function
+    - 예측한 값과 실제 타깃 값 사이의 차이
+    - 학습 단계에서 Loss를 최소화하는 방향으로 모델의 Weight를 조정
+    - 미분 가능해야함 (Gradient Decent를 사용하기 위해)
+    - Cross Entropy Loss, Mean Squared Loss, 등
+    - 결론 : 모델 학습 단계에서 모델의 가중치를 조정하기 위한 목적으로 예측 오차를 측정
+
+  - Evaluation Metric
+    - 학습된 모델의 성능을 평가하는데 사용되는 지표
+    - 손실함수와 달리 평가 지표는 더 직관적이다.
+    - 정확도(Accuracy), 정밀도(Precision), 재현율(Recall), F1 Score 등등
+    - 결론 : 학습된 모델의 성능을 평가하고 보고하기 위해 사용
