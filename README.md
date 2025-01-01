@@ -225,23 +225,32 @@ Requirement already satisfied: threadpoolctl>=3.1.0 in /usr/local/lib/python3.10
 
     - i) K = 6
 
+
       | Validation          | Training                                        |
       |---------------------|---------|---------|---------|---------|---------|
       | (Fold 1) Validation | Fold 2  | Fold 3  | Fold 4  | Fold 5  | Fold 6  |
 
+
+
     - ii)
+
 
       | Training | Validation           | Training                             |
       |----------|----------------------|---------|---------|---------|--------|
       | Fold 1   | (Fold 2) Validation  | Fold 3  | Fold 4  | Fold 5  | Fold 6 |
 
+
+
     - iii)
+
 
       | Training            | Validation          |Training                     |
       |----------|----------|---------------------|---------|---------|---------|
       | Fold 1   | Fold 2   | (Fold 3) Validation | Fold 4  | Fold 5  | Fold 6  |
 
+
     - iv)
+
 
       | Training                                          |Validation           |
       |----------|----------|---------|---------|---------|---------------------|
