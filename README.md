@@ -266,3 +266,34 @@ Requirement already satisfied: threadpoolctl>=3.1.0 in /usr/local/lib/python3.10
         -   손실 함수와 달리 평가 지표는 더 직관적이다.
         -   정확도(Accuracy), 정밀도(Precision), 재현율(Recall), F1 Score 등
         -   **결론**: 학습된 모델의 성능을 평가하고 보고하기 위해 사용
+
+### [실습] PyTorch 기초 - Tensor
+-   **PyTorch의 Tensor**
+    -   **Tensor (torch.Tensor)**
+      -   Numpy의 배열 (array)와 행렬 (matrix)와 매우 유사한 자료구조
+      -   PyTorch에서 scalar, vector, matrix, tensor등을 표현하는데 사용
+
+      -   예:
+          -   Scalar : 1
+              -   1
+
+          -   Vector : (2)
+              -   [1]
+                  [2]
+
+          -   Matrix : (2, 3)
+              -   [[1 3 5]]
+                  [[2 4 6]]
+
+          -   Tensor : (2, 3, 2)
+              -   [[[1 2] [3 4] [5 6]]]
+                  [[[7 8] [9 10] [11 12]]]
+
+      -   **GPU나 TPU와 같은 연산 가속을 위한 특수한 하드웨어에서 실행할 수 있다.**
+      -   **Backward pass에서 계산된 Gradient (.grad)을 저장한다.**
+      -   **기본적으로 torch.Tensor에 어떤 operation (더하기, 곱셈 등)을 취하면 해당 operation이 Computational Graph에 기록된다.**
+          -   해당 Tensor와 다른 배열들과 Parameter 간의 경사를 구하는 것.
+          -   Auto Differentation
+              -   Backward Propagation의 핵심개념이자 작동원리
+              -   모두 Reverse Differentiation을 활용해서 Gradient Descent에 필요한 Gradient을 계산하는 것임
+              -   즉, w = (w0, w1, ... ,wN)인 어떤 임의의 합성함수 L(w)에 대해서 우리는 dL/dwi을 구할 수 있는 것임.
