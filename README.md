@@ -346,4 +346,45 @@ class CustomDataset(Dataset):
     -   torch.utils.Dataset으로 Custom Dataset 구현
     -   torch.utils.DataLoader 활용
 
+### [실습] PyTorch 기초 - Transforms
+
+-   Transforms
+    -   Torchvision에서는 Computer Vision에서 사용되는 다양한 모델, 데이터셋들을 제공
+    -   여기서 torchvision의 transforms 모듈은 이미지 전처리에 관련된 유용한 기능들을 제공
+    -   예를 들어,
+        -   ToTensor : image를 tensor로 변환하고 0~1 사이 값으로 normalize
+        -   Data augmentation (데이터 증강)
+            -   Gaussian Blur
+            -   Random Affine, 등
+
+-   PreProcessing(전처리)
+    -   Deep Learning Pipeline(process)
+        -   Raw Input -> Deep Learning Pipeline -> Cat! (Output)
+    -   MLOps에서의 pipeline의미는 조금 다름
+    -   여기서는 raw input에 대해서 output으로 mapping하는 일련의 과정을 의미한다. 
+
+    -   CV case.
+        -   전처리 -> 딥러닝모델 -> 후처리
+        -   [전처리]
+            -   이미지를 H' W'로 resize한다.
+            -   왜냐하면 NN의 input으로 mini-batch를 구성하는 데이터들은 동일한 dimension (shape)을 가져야 한다.
+            -   그래야 mini-batch을 Matrix 혹은 Tensor로 표현할 수 있다!
+            -   resized 된 이미지를 numpy 배열로 변환
+            -   0~1사이 값으로 normalize 한다
+            -   * Torchvision의 Transforms은 CV와 관련된 전처리 함수, 기능들을 포함!
+
+        -   [딥러닝 모델]
+            -   NN Model은 전처리 값을 입력받아서 또 다른 Tensor값을 출력한다.
+            ```
+            model(img)
+            tensor([0.9900, 0.100])
+            # 고양이일 확률 예측 0.999
+            # 강아지일 확률 예측 0.100
+            ```
+        
+        -   [후처리]
+            -   Cat!
+            -   비록 해당 예제에서는 간단하지만 더 복잡한 전처리의 task도 많이 있다.
+            -   e.g. Object Detection, Segmentation, NLP ...
+
 
