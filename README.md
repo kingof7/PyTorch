@@ -43,9 +43,9 @@
 - PyTorch와 기타 library 설치
   - Anaconda Prompt 실행
   - py312 가상환경 만들기
-    - $ conda create --name py312_windows python=3.12 --yes
-    - $ conda activate py312_windows
-    - $ conda install pytorch torchvision torchaudio -c pytorch --yes
+    - $ _conda create --name py312_windows python=3.12 --yes
+    - $ _conda activate py312_windows
+    - $ _conda install pytorch torchvision torchaudio -c pytorch --yes
     - $ python
       - >>> import torch
       - >>> exit()
@@ -297,3 +297,53 @@ Requirement already satisfied: threadpoolctl>=3.1.0 in /usr/local/lib/python3.10
               -   Backward Propagation의 핵심개념이자 작동원리
               -   모두 Reverse Differentiation을 활용해서 Gradient Descent에 필요한 Gradient을 계산하는 것임
               -   즉, w = (w0, w1, ... ,wN)인 어떤 임의의 합성함수 L(w)에 대해서 우리는 dL/dwi을 구할 수 있는 것임.
+
+### [실습] PyTorch 기초 - Dataset과 DataLoader
+
+-   Dataset과 Data Loader
+    -   Dataset과 Data Loader은 PyTorch에서 제공하는 추상 클래스
+    -   ***Dataset*** (torch.utils.data.Dataset)
+        -   Mini-batch를 구성할 각 data sample을 하나씩 불러오는 기능을 수행한다.
+    -   ***Dataloader (torch.utils.data.DataLoader)***
+        -   Dataset에서 불러온 각 data sample들을 모아서 mini-batch로 구성하는 기능을 수행한다.
+
+    -   그리고 Data Loader를 통해서 Data sample들을 병렬적으로 불러오고, 데이터 셔플 등의 작업을 간단하게 수행할 수 있다.
+
+-   Dataset의 뼈대대
+    -   __init__ function
+    -   __len__ function
+    -   __getitem__ function
+
+    -   예:
+
+```
+from torch.utils.data import Dataset
+
+class CustomDataset(Dataset):
+    def __init__(self):
+        # 데이터셋의 전처리를 수행하는 부분
+    def __len__(self):
+        # 데이터셋의 길이 (즉, 총 샘플의 갯수를 명시하는 부분)
+    def __getitem__(self, item):
+        # 데이터셋에서 특정 1개의 샘플을 가져오는 부분
+        # 참고로 item은 index
+```
+
+-   Data Loader의 Input:
+    -   dataset
+    -   batch_size: mini-batch의 크기
+    -   shuffle (binary): 무작위 순서로 데이터를 샘플링 할 것인지
+    -   num_workers: 데이터 로딩에 사룡할 subprocess 개수 (병렬 처리)
+    -   pin_memory (binary): GPU memory에 pin 할 것인지
+    -   drop_last (binary): 마지막 mini-batch을 drop할 것인지
+
+-   참고로
+    -   num_workers 수가 많을수록 데이터 로딩이 더 빠르지만, 그만큼 CPU core 갯수도 충분해야한다. (CPU core 갯수보다 num_workers가 더 많으면 오히려 느려지는 경우 발생)
+    -   pin_memory=True로 했을 시, GPU (cuda) memory를 미리 할당, 확보시켜서 조금 더 빠르게 데이터를 GPU에 올릴 수 있다.
+
+-   다음 내용을 Jupyter Notebook에서 살펴보자:
+    -   CIFAR10 (torchvision.datasets.CIFAR10)을 활용
+    -   torch.utils.Dataset으로 Custom Dataset 구현
+    -   torch.utils.DataLoader 활용
+
+
