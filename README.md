@@ -387,4 +387,33 @@ class CustomDataset(Dataset):
             -   비록 해당 예제에서는 간단하지만 더 복잡한 전처리의 task도 많이 있다.
             -   e.g. Object Detection, Segmentation, NLP ...
 
+### [실습] PyTorch로 구현해보는 Neural Network
+-   PyTorch 모델의 기본 뼈대
+    -   __init__ 함수
+        -   NN을 구성하고 있는 layer들을 명시하고 initialize한다.
+    -   forward 함수
+        -   입력에 대한 forward pass을 정의한다.
+    ```
+    class NeuralNetwork(nn.Module):
+        def __init__(self):
+            super(NeuralNetwork, self).__init__()
+            # Neural Network을 구성하는 layer들을
+            # initialize하는 부분
+            self.fc_layers = nn.Sequential(
+                nn.Linear(784, 784 // 4),
+                nn.ReLU(),
+                nn.Linear(784 // 4, 784 // 16),
+                nn.ReLU(),
+                nn.Linear(784 // 16, 10),
+                nn.Sigmoid(),
+            )
 
+        def forward(self, x):
+            # Neural Network의 forward pass을 정의하는 부분
+            # x은 input tensor
+            x = torch.flatten(x, start_dim=1)
+            x = self.fc_layers(x)
+            return x
+    ```
+    -   torchsummary을 사용해서 모델의 summary 뽑기
+    
