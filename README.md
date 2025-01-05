@@ -417,3 +417,19 @@ class CustomDataset(Dataset):
     ```
     -   torchsummary을 사용해서 모델의 summary 뽑기
     
+### Section 2 요약
+-   Deep Learning이란 무엇이고 어디에서 기원하는가?
+-   어떤 문제를 풀려고 하는 것인가?
+-   Neural Network의 기본 구성은 어떻고, 어떻게 학습시키는가?
+
+-   Deep Learning
+    -   (NN의 출력값) Y^ = NN(X)가 (실제값) Y = f(X)에 최대한 잘 근사하도록 학습하는 것.
+-   기본적인 NN의 구성
+    -   Input Layer + (한 개 이상의) Hidden Layer + Output Layer
+-   각 Layer의 Neuron의 구성
+    -   가중치 weight w와 활성 함수 activation fucntion으로 구성된다.
+-   ***NN이 학습되는 과정 = weight값이 최적화되는 과정***
+    -   Gradient Descent (경사 하강)을 통한 Loss fucntion (손실 함수)값을 최소화하도록, weight값을 최적화하고 점진적으로 모델의 예측 정확도를 높인다.
+-   각 뉴론의 구성은 Weight, Activation Function으로 구성
+-   sigma(i=1~3) xi * wji : 이전 Layer의 출력값 xi은 가중치 wji에 곱해져서 합해진다. (weight multiplication --> Aggregation)
+-   sigma : 합해진 값들은 activation function sigma을 통과하여 해당 뉴런의 최종 출력값 hj을 구한다.
