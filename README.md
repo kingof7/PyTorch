@@ -433,3 +433,61 @@ class CustomDataset(Dataset):
 -   각 뉴론의 구성은 Weight, Activation Function으로 구성
 -   sigma(i=1~3) xi * wji : 이전 Layer의 출력값 xi은 가중치 wji에 곱해져서 합해진다. (weight multiplication --> Aggregation)
 -   sigma : 합해진 값들은 activation function sigma을 통과하여 해당 뉴런의 최종 출력값 hj을 구한다.
+
+### [이론] Loss Function의 정의
+-   손실함수 의 정의 : NN 모델이 예측한 값 Y^과 원래 정답 Y간의 오차
+-   대표적으로 Mean Square Error Loss가 있다.
+    -   MSE : L(Y, Y^) = 1/N * sum(Y^ - Y)^2
+-   정답값 Y와 Y^의 차이가 크다 -> 부정확한 예측 -> 손실함수의 값 L(Y, Y^)가 크다.
+-   정답값 Y와 Y^의 차이가 작다 -> 정확한 예측 -> 손실함수의 값 L(Y, Y^)가 작다.
+-   즉, 손실 함수의 값이 최소화되도록 모델의 weight를 최적화하면 모델의 정확도가 높아진다!
+
+### [이론] Task의 종류
+-   Regression Task (회귀)
+    -   어떤 연속적인 값을 예측하는 Task
+        -   예시: 주가의 가격을 예측
+
+-   Classfication Task (분류)
+    -   "discreate", "categorical" 클래스 라벨을 예측하는 task
+        -   예시: 책의 장르를 예측하는 task 등
+
+-   Regression Task
+    -   Input (x1, x2, x3) -> Output (y)
+        -   X E R^3            y^ E [a,b] (= [] 대괄호는, 각각의 값들이 a이상 b이하에 있는다라는 뜻)
+-   Classfication Task
+    -   Input (x1, x2, x3) -> Output (y)
+        -   X E R^3            y^ E {0,1, ..., C - 1} (= 0, 1, ..., C - 1 중에서 하나의 값) / label값
+
+-   Regression Task의 접근방법
+    -   Sigmoid 함수? 기계학습과 신경망에서 널리 사용되는 활성화 함수
+        -   f(x) = 1 / (1 + e^(-x))
+            -   모든 입력값을 0과 1 사이로 변환
+            -   S자 형태의 곡선을 형성
+            -   연속적이고 미분 가능한 함수
+            -   확률 표현에 적합한 0~1 사이의 출력값
+        -   활용
+            -   이진 분류 문제의 출력층
+            -   신경망의 은닉층 활성화 함수
+            -   확률 기반 모델링
+        -   구현예시
+            -   ```
+                import numpy as np
+                
+                def sigmoid(x):
+                    return 1 / (1 + np.exp(-x))
+                ```
+        -   참고사항
+            -   최근 딥러닝에서는 vanishing gradient 문제로 인해 ReLU(Rectified Linear Unit) 함수를 더 선호하는 추세입니다.
+    -   Input (x1, x2, x3) -> NN -> NN Output(= o^는 sigmoid 함수) : o^ -> (Rescaling) -> final output : y^
+        -   X E R^3                 o^ E [0,1]        y^ E [a,b] (=a와 b사이의 값)
+            -   Linear Rescaling: y^ = (b - a) * o^ + a (o^에 0을 대입하면 y^ = a, o^에 1을 대입하면 y^ = b)
+
+-   Classfication Task의 접근방법
+    -   Input (x1, x2, x3) -> NN -> NN Output(= Logit, C차원의 벡터) : o^0, ... , o^i, ... , o^C-1 -> (Arg max) -> final output : y^
+        -   (= 0번째 Class에 대한 Logit, i번째 Class에 대한 Logit, C-1번째 Class에 대한 Logit --> 총 C개이므로, C차원의 Vector)
+        -   X E R^3                 o^ E R^C        y^ E {0,1, ..., C - 1}
+            -   class : 분류
+                -   예: 고양이, 개, 원숭이 등..
+            -   Arg max : 어떤 벡터나 리스트에서 가장 큰 값을 가지는 index를 출력하는 함수.
+                -   예: o^i(= i번째 Logit)이 가장 큰 값이면, 모델은 Arg max를 통해 i번째 class로 예측한 셈
+            -   Softmax Function : y^ = softmax(o^)
